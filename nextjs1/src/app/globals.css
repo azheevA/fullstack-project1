@@ -1,0 +1,79 @@
+@import "tailwindcss";
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --font-geist-sans: 'Geist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-sans: var(--font-grato), ui-sans-serif, system-ui, sans-serif;
+
+  --section1-bg: linear-gradient(45deg, #000000 0%, #FF4C00 100%);  
+  --section2-bg: linear-gradient(45deg, #FF4C00 0%,#B38BCE 50%,#00E4F0 100%);  
+  --section1-hov: linear-gradient(45deg, #000000 0%, #b15933 100%);
+  --section2-hov: linear-gradient(45deg, #b15933 0%,#a56dca 50%,#28a2a8 100%); 
+  --section3: linear-gradient(20deg, #000000 0%,#000 30%, #00E4F0 100%);
+}
+@layer utilities {
+  .text-gradient-mrnet {
+    background: linear-gradient(90deg, 
+      #FF4C00, 
+      #F15724, 
+      #DE6657, 
+      #CE7382, 
+      #C27DA3,
+      #BA85BA,
+      #B489C9,
+      #B38BCE,
+      #A392D1,
+      #79A7D8,
+      #36C8E5,
+      #00E4F0
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+  
+  
+}
+@theme{
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  /* --font-sans: var(--font-geist-sans); */
+  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-montserrat);
+}
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-montserrat), sans-serif !important;
+}
+.bg-section1-bg {
+  background: var(--section1-bg);
+}
+.font-grotesk-mono {
+  font-family: var(--font-grotesk-mono);
+}
+.bg-section2-bg {
+  background: var(--section2-bg);
+}
+.bg-section1-hov{
+  background: var(--section1-hov);
+}
+.bg-section2-hov{
+  background: var(--section2-hov);
+}
+.bg-section3{
+  background: var(--section3);
+}
