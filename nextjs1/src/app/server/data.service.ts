@@ -1,6 +1,8 @@
+const API_URL = process.env.API_URL
+  || 'http://localhost:3000';
 export async function getUsers(page: number = 1, limit: number = 10) {
   try {
-    const response = await fetch(`http://localhost:3000/data?page=${page}&limit=${limit}`, {
+    const response = await fetch(`${API_URL}/data?page=${page}&limit=${limit}`, {
       next: { revalidate: 0 }, 
       cache: 'no-store'
     });

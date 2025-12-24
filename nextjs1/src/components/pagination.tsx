@@ -7,11 +7,13 @@ import Pagination from './UI/pagination'
 import GetList from '../components/getList'; 
 
 const PAGE_SIZE = 3;
+const API_URL = process.env.API_URL
+  || 'http://localhost:3000';
 export default function PagePagination({ initialData }: { initialData: any }) {
   const [page, setPage] = useState<number>(1)
     
   const { data, error, isLoading } = useSWR(
-    `http://localhost:3000/data?page=${page}&limit=${PAGE_SIZE}`,
+    `${API_URL}/data?page=${page}&limit=${PAGE_SIZE}`,
     () => getUsers(page, PAGE_SIZE),
     {
       fallbackData: page === 1 ? initialData : undefined,

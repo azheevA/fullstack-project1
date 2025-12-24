@@ -31,6 +31,8 @@ services:
       - "5000:5000" 
     depends_on:
       - backend
+    environment:
+    - API_URL=http://backend:3000   
     volumes:
       - ./nextjs1:/app
       - /app/node_modules
