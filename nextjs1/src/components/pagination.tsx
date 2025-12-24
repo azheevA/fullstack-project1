@@ -19,8 +19,10 @@ export default function PagePagination({ initialData }: { initialData: any }) {
     }
   )
 
-  if (error) return <div>Ошибка загрузки</div>
-
+  if (error) {
+    console.error('Ошибка при загрузке данных:', error);
+    return <div>Ошибка загрузки</div>
+  }
 
   const currentUsers = data?.items || data || [];
 
