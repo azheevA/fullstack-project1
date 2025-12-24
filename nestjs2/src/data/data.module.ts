@@ -12,4 +12,5 @@ import { DataSeed } from "./seeds/data.seed";
     MongooseModule.forFeature([{ name: Data.name, schema: DataSchema }]),
   ],
 })
+  
 export class DataModule {}
