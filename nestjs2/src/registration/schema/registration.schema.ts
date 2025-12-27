@@ -8,17 +8,11 @@ export class Registration  {
   @Prop({ required: true })
   name: string;
 
-  @Prop()
-  contacts: string;
-
   @Prop({ required: true })
   phone: string;
 
   @Prop()
   telegram: string;
-
-  @Prop({ required: true })
-  consent: boolean;
 
 }
 

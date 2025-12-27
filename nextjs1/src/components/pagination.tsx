@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import useSWR from 'swr'
-import { getUsers } from "../app/server/data.service"; 
+import { getUsers } from "../app/server/server"; 
 import Pagination from './UI/pagination'
 import GetList from '../components/getList'; 
 

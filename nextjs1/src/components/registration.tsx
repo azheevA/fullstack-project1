@@ -2,23 +2,19 @@
 
 import { useState, FormEvent } from 'react';
 import Button from './UI/button';
-import {createRegistration} from '../app/server/data.service';
+import {createRegistration} from '../app/server/server';
 import { IMaskInput } from 'react-imask';
 interface FormData {
   name: string;
-  contacts: string;
   phone: string;
   telegram: string;
-  consent: boolean;
 }
 
 export default function RegistrationForm() {
   const [formData, setFormData] = useState<FormData>({
     name: '',
-    contacts: '',
     phone: '',
     telegram: '',
-    consent: false,
   });
 
   const [phoneInput, setPhoneInput] = useState('+7 ');
@@ -60,10 +56,11 @@ export default function RegistrationForm() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     
-    if (!formData.name || !formData.phone || !formData.consent) {
+    if (!formData.name || !formData.phone) {
       alert('Пожалуйста, заполните все обязательные поля');
       return;
     }
+    
     setIsSubmitting(true);
     
     try {
@@ -72,10 +69,8 @@ export default function RegistrationForm() {
        
         setFormData({
           name: '',
-          contacts: '',
           phone: '',
           telegram: '',
-          consent: false,
         });
         setPhoneInput('+7 ');
       
@@ -150,8 +145,15 @@ export default function RegistrationForm() {
                 transition-all duration-300
               "
               id="phone"
-              unmask={true} // если true, в onAccept придет число без маски
-              onAccept={(value, mask) => console.log(value)} // обработка ввода
+              unmask={true} 
+              onAccept={(value) => {
+                setPhoneInput(value);
+                setFormData(prev => ({
+                  ...prev,
+                  phone: value
+                }));
+              }}
+                
             />
           </div>
 

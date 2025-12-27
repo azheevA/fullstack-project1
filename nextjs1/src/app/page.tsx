@@ -3,7 +3,7 @@ import RegistrationForm from "@/components/registration";
 import Button from "@/components/UI/button";
 import Footer from "@/components/UI/footer/footer";
 import Image from "next/image";
-import { getUsers } from "./server/data.service";
+import { getUsers } from "./server/server";
 import GetList from "../components/getList";
 
 const users = await getUsers();

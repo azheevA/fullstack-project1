@@ -1,13 +1,9 @@
-import { IsBoolean, IsNotEmpty, IsOptional, IsPhoneNumber, IsString } from "class-validator";
+import {IsNotEmpty, IsOptional, IsPhoneNumber, IsString } from "class-validator";
 
 export class CreateRegistrationDto {
     @IsString()
     @IsNotEmpty()
     name: string;
-
-    @IsString()
-    @IsOptional()
-    contacts: string;
 
     @IsString()
     @IsNotEmpty()
@@ -17,7 +13,4 @@ export class CreateRegistrationDto {
     @IsString()
     @IsOptional()
     telegram: string;
-
-    @IsBoolean()
-    consent: boolean;
 }
