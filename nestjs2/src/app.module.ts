@@ -6,7 +6,7 @@ import { DataModule } from './data/data.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true, // 👈 важно
+      isGlobal: true,
     }),
     MongooseModule.forRootAsync({
       inject: [ConfigService],

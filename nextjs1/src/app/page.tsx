@@ -15,7 +15,7 @@ export default async function Home() {
   return (  
     <>
       <div className="flex flex-row gap-5 mx-20 min-h-[300px]">
-        <div className="bg-gradient-to-tr from-[#000] via-[#000] to-[#FF4C00] rounded-lg shadow-lg w-2/3  pb-6 border-[#FF4C00] border-2">
+        <div className="bg-gradient-to-tr from-[#000000] via-[#000000] to-[#FF4C00] rounded-lg shadow-lg w-2/3  pb-6 border-[#FF4C00] border-2">
           <div className="text-center rounded-lg mt-20">
             <h1 className="text-5xl uppercase mb-6 tracking-tight">
               Беспроводной интернет для бизнеса
@@ -218,7 +218,7 @@ export default async function Home() {
       className="w-2/3 mx-auto mb-20 rounded-lg border-2 border-[#FF4C00]"
     />  
       
-    <div className=" flex flex-row mx-20 gap-4 ">
+    <div className="w-full flex flex-row px-20 gap-4">
       <div className="w-1/3 text-5xl bg-section2-bg rounded-2xl py-5 px-3 text-black font-semibold flex justify-center items-center">
         <h1 className="w-full">Хотите узнать больше, рассчитать стоимость или забрать устройство на бесплатный тест?</h1>
       </div>

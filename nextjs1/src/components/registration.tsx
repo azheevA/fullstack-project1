@@ -2,7 +2,8 @@
 
 import { useState, FormEvent } from 'react';
 import Button from './UI/button';
-
+import {createRegistration} from '../app/server/data.service';
+import { IMaskInput } from 'react-imask';
 interface FormData {
   name: string;
   contacts: string;
@@ -21,7 +22,7 @@ export default function RegistrationForm() {
   });
 
   const [phoneInput, setPhoneInput] = useState('+7 ');
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const formatPhoneNumber = (value: string): string => {
     const numbers = value.replace(/\D/g, '');
     
@@ -59,23 +60,14 @@ export default function RegistrationForm() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     
-    
     if (!formData.name || !formData.phone || !formData.consent) {
       alert('Пожалуйста, заполните все обязательные поля');
       return;
     }
-
+    setIsSubmitting(true);
     
     try {
-      const response = await fetch('/api/submit-form', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
+      await createRegistration(formData);
         alert('Форма успешно отправлена!');
        
         setFormData({
@@ -86,62 +78,80 @@ export default function RegistrationForm() {
           consent: false,
         });
         setPhoneInput('+7 ');
-      }
+      
     } catch (error) {
       console.error('Ошибка отправки формы:', error);
       alert('Произошла ошибка при отправке формы');
+    } finally {
+     setIsSubmitting(false);
     }
   };
 
   return (
-    <div className=" flex w-full  mx-auto">
-      <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#00E4F0] bg-gradient-to-tr from-[#000000] to-[#00E4F0] py-6">
+    <div className=" flex w-full ">
+      <div className="bg-white w-full rounded-2xl shadow-lg overflow-hidden border border-[#00E4F0] bg-section3 py-6">
         
-          <h2 className="text-lg font-bold text-white text-center">
+          <h1 className="text-5xs font-light text-white text-center my-6 uppercase">
             УСЛУГА ДОСТУПНА ТОЛЬКО ДЛЯ ЮРИДИЧЕСКИХ ЛИЦ
-          </h2>
+          </h1>
     
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           <div>
-            <label className="block text-sm font-medium text-black mb-1">
-              Ваше имя *
-            </label>
+            
             <input
               type="text"
               value={formData.name}
               onChange={(e) => setFormData({...formData, name: e.target.value})}
-              className="w-full px-3 py-2 border border-black-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="
+                w-full  px-6 py-3 rounded-full 
+                bg-black text-white text-lg tracking-[0.2em]
+                border-2 border-cyan-500/80
+                shadow-[0_0_15px_rgba(6,182,212,0.4)]
+                outline-none focus:border-cyan-400 
+                focus:shadow-[0_0_25px_rgba(34,211,238,0.6)]
+                transition-all duration-300
+                "
               required
-              placeholder="Иванов Иван Иванович"
+              placeholder="Ваше имя *"
             />
           </div>
 
+          
+
           <div>
-            <label className="block text-sm font-medium text-black- mb-1">
+            <label className="block text-3xs font-medium  my-4">
               Оставьте ваши контакты
             </label>
-            <textarea
-              value={formData.contacts}
-              onChange={(e) => setFormData({...formData, contacts: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              rows={2}
-              placeholder="example@email.com, дополнительный телефон..."
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-black- mb-1">
-              Ваш телефон +7 (__)___-__-__ *
-            </label>
-            <input
+            {/* <input
               type="tel"
               value={phoneInput}
               onChange={handlePhoneChange}
-              className="w-full px-3 py-2 border border-black- rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full bg-black px-3 py-2 border border-black- rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               required
               pattern="\+7\s\(\d{3}\)\d{3}-\d{2}-\d{2}"
-              placeholder="+7 (___) ___-__-__"
+              placeholder="Ваш телефон +7 (__)___-__-__ *"
+            /> */}
+            <IMaskInput
+              mask="+{7} (000) 000-00-00"
+              definitions={{
+                '#': /[1-9]/,
+              }}
+              value={phoneInput}
+              lazy={false} 
+              placeholderChar="_"
+              className="
+                w-full  px-6 py-3 rounded-full 
+                bg-black text-white text-lg tracking-[0.2em]
+                border-2 border-cyan-500/80
+                shadow-[0_0_15px_rgba(6,182,212,0.4)]
+                outline-none focus:border-cyan-400 
+                focus:shadow-[0_0_25px_rgba(34,211,238,0.6)]
+                transition-all duration-300
+              "
+              id="phone"
+              unmask={true} // если true, в onAccept придет число без маски
+              onAccept={(value, mask) => console.log(value)} // обработка ввода
             />
           </div>
 
@@ -154,7 +164,15 @@ export default function RegistrationForm() {
               type="text"
               value={formData.telegram}
               onChange={(e) => setFormData({...formData, telegram: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="
+                w-full  px-6 py-3 rounded-full 
+                bg-black text-white text-lg tracking-[0.2em]
+                border-2 border-cyan-500/80
+                shadow-[0_0_15px_rgba(6,182,212,0.4)]
+                outline-none focus:border-cyan-400 
+                focus:shadow-[0_0_25px_rgba(34,211,238,0.6)]
+                transition-all duration-300
+               "
               placeholder="@username"
             />
           </div>
@@ -163,23 +181,14 @@ export default function RegistrationForm() {
           <div className="space-y-2">
             <div className="flex items-start">
               <input
-                type="checkbox"
-                id="consent"
-                checked={formData.consent}
-                onChange={(e) => setFormData({...formData, consent: e.target.checked})}
-                className="h-4 w-4 mt-1 text-blue-600 rounded focus:ring-blue-500"
-                required
-              />
-              <label htmlFor="consent" className="ml-2 text-sm text-[#B0B0B0]">
-                Я даю согласие на обработку моих персональных данных в форме обращения на странице сайта. 
-                Ознакомиться с условиями{' '}
-                <a 
-                  href="#" 
-                  className="text-[#B0B0B0] hover:text-[#B0B0B0] underline"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Политики обработки персональных данных ООО «НЫОКОМ ДИСТРИБЬЮШН»
-                </a>
+              type="checkbox"
+              id="privacy"
+              className="mt-1 w-4 h-4 accent-brand-cyan border-brand-cyan bg-black "
+              required
+            />
+              <label htmlFor="privacy" className=" ml-2 text-[10px] md:text-xs text-gray-400 leading-relaxed">
+              Я даю <a href="#" className="underline hover:text-white">согласие</a> на обработку моих персональных данных в форме обращения на странице сайта. Ознакомиться с условиями 
+              <br /><a href="#" className="underline hover:text-white ml-1">Политики обработки персональных данных ООО «НЬЮКОМ ДИСТРИБЬЮШН»</a>
               </label>
             </div>
             
