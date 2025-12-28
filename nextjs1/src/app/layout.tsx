@@ -1,13 +1,19 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Montserrat } from 'next/font/google';
-
+import localFont from 'next/font/local'
 import "./globals.css";
 import Header from "@/components/UI/header/header";
+import Footer from "@/components/UI/footer/footer";
+import clsx from "clsx";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
+const stackSansNotch = localFont({
+  src: './font/StackSansNotch/StackSansNotch-Regular.ttf', 
+  variable: '--font-stack-sans-notch',
+})
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -33,12 +39,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru" className={montserrat.variable}>
+    <html lang="ru" className={clsx(montserrat.variable, stackSansNotch.variable)}>
       <body
         className="font-sans"
       >
         <Header/>
         {children}
+        <Footer/>
       </body>
     </html>
   );

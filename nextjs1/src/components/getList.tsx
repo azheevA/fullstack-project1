@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+
 interface IData {
   _id: string;
   name: string;
@@ -7,7 +8,7 @@ interface IData {
   description: string;
 }
 
-export default function GetList({ users }: { users: IData[] }) {
+function UserCard({ item }: { item: IData }) {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [isOverflowed, setIsOverflowed] = useState<boolean>(false);
   const textRef = useRef<HTMLDivElement>(null);
@@ -15,58 +16,61 @@ export default function GetList({ users }: { users: IData[] }) {
   useEffect(() => {
     const checkOverflow = () => {
       if (textRef.current) {
-        setIsOverflowed(textRef.current.scrollHeight > textRef.current.clientHeight);
-      }    };
-
-    checkOverflow();
-
-    window.addEventListener("resize", checkOverflow);
-    return () => {
-      window.removeEventListener("resize", checkOverflow);
+        setIsOverflowed(textRef.current.scrollHeight > 96);
+      }
     };
-  }, [
-    users
-  ]); 
-
-
-  if (!users || users.length === 0) return <div>Нет данных для отображения</div>;
+    checkOverflow();
+    window.addEventListener("resize", checkOverflow);
+    return () => window.removeEventListener("resize", checkOverflow);
+  }, [item.description]);
 
   return (
-    <div className="flex flex-wrap justify-center  w-full">
-      {users.map((item: IData) => (
-        <div key={item._id} className="rounded-lg p-6 m-4 bg-section3 border-[#00E4F0] border-2 w-[45%]">
-          <h2 className="text-2xl font-bold">{item.name}</h2>
-          <h3 className="text-xl italic mb-4">{item.profession}</h3>
-          <div className="relative">
-            <div ref={textRef} className={`overflow-hidden ${isExpanded ? "h-auto" : "h-24"}`}>
-              <p>{item.description}</p>
-            </div>
-            {isOverflowed && (
-              <button
-                onClick={() => setIsExpanded(!isExpanded)}
-                className="absolute bottom-[-25]  right-[-10] bg-gradient-to-t from-section3 to-transparent text-center py-2"
-              >
-                <div className="h-7 w-7 hover:bg-[#00E4F0] rounded-full flex items-center justify-center border-1 border-white">
-                {isExpanded ?
-                  <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
-                  </svg>
-                  
-                  </div>
-                 : 
-                 <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                  </svg>
-                  </div>
-                 }
-                 </div> 
-              </button>
-            )}
-          </div>
-      
+    <div className="rounded-lg p-6 m-4 bg-section3 border-[#00E4F0] border-2 w-[45%] align-top self-start transition-all duration-500">
+      <h2 className="text-2xl font-bold">{item.name}</h2>
+      <h3 className="text-xl italic mb-4">{item.profession}</h3>
+      <div className="relative">
+        <div 
+          ref={textRef} 
+          className={`overflow-hidden transition-[max-height] duration-500 ease-in-out ${
+            isExpanded ? "max-h-[1000px]" : "max-h-24"
+          }`}
+        >
+          <p className="text-gray-200 leading-relaxed">{item.description}</p>
         </div>
+
+        {isOverflowed && !isExpanded && (
+          <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-section3 to-transparent pointer-events-none" />
+        )}
+        {isOverflowed && (
+          <div className="flex justify-center mt-2">
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="z-10 bg-section3 hover:bg-[#00E4F0] transition-colors rounded-full p-1 border border-white/50"
+            >
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                strokeWidth="1.5" 
+                stroke="currentColor" 
+                className={`size-6 transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+              </svg>
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default function GetList({ users }: { users: IData[] }) {
+  if (!users || users.length === 0) return <div className="text-center p-10 text-white">Нет данных</div>;
+  return (
+    <div className="flex flex-wrap justify-center w-full items-start">
+      {users.map((item) => (
+        <UserCard key={item._id} item={item} />
       ))}
     </div>
   );

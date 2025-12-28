@@ -19,39 +19,9 @@ export default function RegistrationForm() {
 
   const [phoneInput, setPhoneInput] = useState('+7 ');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const formatPhoneNumber = (value: string): string => {
-    const numbers = value.replace(/\D/g, '');
-    
-    if (!numbers) return '+7 ';
-    
-    let formatted = '+7 ';
-    
-    if (numbers.length > 1) {
-      formatted += `(${numbers.substring(1, 4)}`;
-    }
-    if (numbers.length >= 4) {
-      formatted += `)${numbers.substring(4, 7)}`;
-    }
-    if (numbers.length >= 7) {
-      formatted += `-${numbers.substring(7, 9)}`;
-    }
-    if (numbers.length >= 9) {
-      formatted += `-${numbers.substring(9, 11)}`;
-    }
-    
-    return formatted;
-  };
+  
 
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setPhoneInput(value);
-    
-    const phoneNumbers = value.replace(/\D/g, '');
-    setFormData(prev => ({
-      ...prev,
-      phone: phoneNumbers
-    }));
-  };
+  
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();

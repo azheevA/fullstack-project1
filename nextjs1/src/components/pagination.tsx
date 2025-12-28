@@ -7,14 +7,13 @@ import Pagination from './UI/pagination'
 import GetList from '../components/getList'; 
 
 const PAGE_SIZE = 3;
-const API_URL = process.env.API_URL
-  || 'http://localhost:3000';
+
 export default function PagePagination({ initialData }: { initialData: any }) {
   const [page, setPage] = useState<number>(1)
     
   const { data, error, isLoading } = useSWR(
-    `${API_URL}/data?page=${page}&limit=${PAGE_SIZE}`,
-    () => getUsers(page, PAGE_SIZE),
+    ['users', page], 
+    () => getUsers(page, PAGE_SIZE), 
     {
       fallbackData: page === 1 ? initialData : undefined,
       keepPreviousData: true 
@@ -23,25 +22,21 @@ export default function PagePagination({ initialData }: { initialData: any }) {
 
   if (error) {
     console.error('Ошибка при загрузке данных:', error);
-    return <div>Ошибка загрузки</div>
+    return <div className="text-red-500 text-center">Ошибка загрузки данных</div>
   }
-
   const currentUsers = data?.items || data || [];
+  const totalPages = data?.totalPages || 1;
 
   return (
-    <div className="w-full">
-
+    <div className="w-full py-0">
       <div className="h-6 text-center">
         {isLoading && <span className="text-[#00E4F0] animate-pulse">Обновление данных...</span>}
       </div>
-
-  
       <GetList users={currentUsers} />
-
       <div className="px-20 mx-auto mt-8">
         <Pagination
           currentPage={page}
-          totalPages={data?.totalPages || 1}
+          totalPages={totalPages}
           onPageChange={setPage}
         />
       </div>
