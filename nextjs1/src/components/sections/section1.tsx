@@ -1,9 +1,11 @@
+"use client"
 import Image from 'next/image'
 import Button from '../UI/button'
+import { scrollToElement } from '@/utils/scrolltoElement'
 export default function Section1() {
   return (
     <div className="flex flex-row gap-5 mx-20 min-h-[300px]">
-                <div className="bg-gradient-to-tr from-[#000000] via-[#000000] to-[#FF4C00] rounded-lg shadow-lg w-2/3  pb-6 border-[#FF4C00] border-2">
+                <div className="bg-linear-to-tr from-[#000000] via-[#000000] to-[#FF4C00] rounded-lg shadow-lg w-2/3  pb-6 border-[#FF4C00] border-2">
                   <div className="  text-center rounded-lg mt-6">
                     <h2 className="text-4xl md:text-6xl font-light uppercase leading-tight tracking-tight mb-4">
                         Беспроводной <br /> интернет для бизнеса
@@ -16,8 +18,8 @@ export default function Section1() {
                             Установка по любому адресу в РФ!
                         </p>
                     </div>
-
-                    <Button variant='blue' size='lg'>
+                    
+                    <Button variant='blue' size='lg' onClick={() => scrollToElement('registration-form')}>
                         Попробовать
                     </Button>
 

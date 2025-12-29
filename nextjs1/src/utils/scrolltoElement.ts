@@ -1,0 +1,15 @@
+export const scrollToElement = (id: string) => {
+  const element = document.getElementById(id);
+  
+  if (element) {
+    const offset = 80;
+    const elementPosition = element.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - offset;
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth',
+    });
+  } else {
+    console.warn(`Элемент с id="${id}" не найден.`);
+  }
+};

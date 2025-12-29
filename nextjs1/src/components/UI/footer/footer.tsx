@@ -60,7 +60,7 @@ export default function Footer() {
           </div>
     </div>
       
-      <div className="h-64 w-3xs grid grid-cols-5 bg-gradient-to-tr from-[#FF4C00] via-[#AD85C8] to-[#00E4F0] border-none absolute bottom-0 right-0">
+      <div className="h-64 w-3xs grid grid-cols-5 bg-linear-to-tr from-[#FF4C00] via-[#AD85C8] to-[#00E4F0] border-none absolute bottom-0 right-0">
         <div className="w-full h-full bg-black "></div><div className="w-full h-full bg-black"></div><div className="w-full h-full bg-black"></div><div className="w-full h-full"></div><div className="w-full h-full bg-black"></div>
         <div className="w-full h-full bg-black"></div><div className="w-full h-full bg-black"></div><div className="w-full h-full"></div><div className="w-full h-full bg-black"></div><div className="w-full h-full bg-black"></div>
         <div className="w-full h-full bg-black"></div><div className="w-full h-full bg-black"></div><div className="w-full h-full"></div><div className="w-full h-full bg-black"></div><div className="w-full h-full bg-black"></div>

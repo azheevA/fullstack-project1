@@ -1,6 +1,7 @@
-import React from 'react'
+"use client"
 import Image from 'next/image'
 import Button from '../UI/button'
+import { scrollToElement } from '@/utils/scrolltoElement'
 export default function Section6() {
   return (
     <>
@@ -27,8 +28,8 @@ export default function Section6() {
         <Image src="/images/macbook.jpg" width={600} height={300} alt="mac" 
         className="flex-1 rounded-2xl border-2 hover:border-white"/>
       </div>
-      <div className="flex w-screen mx-auto">
-        <Button variant="blue" className="flex mx-auto mt-20">
+      <div className="flex w-screen mx-auto" onClick={()=>scrollToElement('registration-form')}>
+        <Button variant="blue" className="flex mx-auto mt-20" >
         Испытать все возможности
         </Button>
       </div>

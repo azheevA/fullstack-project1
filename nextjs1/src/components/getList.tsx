@@ -39,13 +39,14 @@ function UserCard({ item }: { item: IData }) {
         </div>
 
         {isOverflowed && !isExpanded && (
-          <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-section3 to-transparent pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-full h-12 bg-linear-to-t from-section3 to-transparent pointer-events-none" />
         )}
         {isOverflowed && (
-          <div className="flex justify-center mt-2">
-            <button
+          <div className="flex justify-center mt-2 relative">
+            <div className="flex w-full items-end justify-end">
+              <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="z-10 bg-section3 hover:bg-[#00E4F0] transition-colors rounded-full p-1 border border-white/50"
+              className="z-10 hover:bg-white transition-colors rounded-full p-1 border border-[#00E4F0]  bottom-3 right-3"
             >
               <svg 
                 xmlns="http://www.w3.org/2000/svg" 
@@ -53,11 +54,13 @@ function UserCard({ item }: { item: IData }) {
                 viewBox="0 0 24 24" 
                 strokeWidth="1.5" 
                 stroke="currentColor" 
-                className={`size-6 transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
+                className={`size-6 text-[#00E4F0] transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
               >
                 <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
               </svg>
             </button>
+            </div>
+            
           </div>
         )}
       </div>

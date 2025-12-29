@@ -46,7 +46,7 @@ export default function Section3() {
         onMouseMove={onMouseMove}
     >
            {groupImage.map((i, index) => (
-            <div key={index} className='flex-shrink-0 pointer-events-none select-none items-center'>
+            <div key={index} className='shrink-0 pointer-events-none select-none items-center'>
              <Image
                key={i}
                src={`/svg/svg-group1/${i}.svg`}

@@ -30,7 +30,7 @@ export default function Header() {
             <a className="hover:text-gray-300 transition">Платформа управления</a>
             <a className="hover:text-gray-300 transition">Тест-драйв</a>
             <a className="hover:text-gray-300 transition">Наша сеть</a>
-            <a className="text-cyan-400 hover:text-cyan-300 transition">Оставить заявку</a>
+            <Link href="/registration" className="text-cyan-400 hover:text-cyan-300 transition">Оставить заявку</Link>
         </div>
     </header>
     

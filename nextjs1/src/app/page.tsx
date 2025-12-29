@@ -35,7 +35,7 @@ export default async function Home() {
         <div className="w-1/3 text-5xl bg-section2-bg rounded-2xl py-5 px-3 text-black font-semibold flex justify-center items-center">
           <h1 className="w-full">Хотите узнать больше, рассчитать стоимость или забрать устройство на бесплатный тест?</h1>
         </div>
-        <div className="w-2/3">
+        <div className="w-2/3" id="registration-form">
           <RegistrationForm/>
         </div>
       </div>    

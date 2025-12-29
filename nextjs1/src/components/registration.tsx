@@ -88,15 +88,6 @@ export default function RegistrationForm() {
             <label className="block text-3xs font-medium  my-4">
               Оставьте ваши контакты
             </label>
-            {/* <input
-              type="tel"
-              value={phoneInput}
-              onChange={handlePhoneChange}
-              className="w-full bg-black px-3 py-2 border border-black- rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              required
-              pattern="\+7\s\(\d{3}\)\d{3}-\d{2}-\d{2}"
-              placeholder="Ваш телефон +7 (__)___-__-__ *"
-            /> */}
             <IMaskInput
               mask="+{7} (000) 000-00-00"
               definitions={{
@@ -157,7 +148,7 @@ export default function RegistrationForm() {
               id="privacy"
               className="mt-1 w-4 h-4 accent-brand-cyan border-brand-cyan bg-black "
               required
-            />
+              />
               <label htmlFor="privacy" className=" ml-2 text-[10px] md:text-xs text-gray-400 leading-relaxed">
               Я даю <a href="#" className="underline hover:text-white">согласие</a> на обработку моих персональных данных в форме обращения на странице сайта. Ознакомиться с условиями 
               <br /><a href="#" className="underline hover:text-white ml-1">Политики обработки персональных данных ООО «НЬЮКОМ ДИСТРИБЬЮШН»</a>

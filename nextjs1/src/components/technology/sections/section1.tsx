@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import Button from '@/components/UI/button'
+import { scrollToElement } from '@/utils/scrolltoElement'
 export default function Section1() {
   return (
     <>
@@ -22,6 +23,7 @@ export default function Section1() {
                 <Button 
                     variant='blue'
                     className='rounded-full m-20 px-12 py-3'
+                    onClick={() => scrollToElement('registration')}
                 >
                     Оставить зявку
                 </Button>
